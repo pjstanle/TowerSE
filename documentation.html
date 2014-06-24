@@ -1,0 +1,284 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>4. Documentation &mdash; TowerSE 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/nrel.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="TowerSE 0.1.0 documentation" href="index.html" />
+    <link rel="next" title="5. Theory" href="theory.html" />
+    <link rel="prev" title="3. Tutorial" href="tutorial.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="theory.html" title="5. Theory"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tutorial.html" title="3. Tutorial"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">TowerSE 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="documentation">
+<span id="documentation-label"></span><h1>4. Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h1>
+<p>The following inputs and outputs are defined for TowerSE:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">TowerSE</span><span class="p">(</span><span class="n">Assembly</span><span class="p">):</span>
+
+    <span class="c"># geometry</span>
+    <span class="n">towerHeight</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;m&#39;</span><span class="p">)</span>
+    <span class="n">monopileHeight</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;m&#39;</span><span class="p">)</span>
+    <span class="n">d_monopile</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;m&#39;</span><span class="p">)</span>
+    <span class="n">t_monopile</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;m&#39;</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;locations along unit tower, linear lofting between&#39;</span><span class="p">)</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;m&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;tower diameter at corresponding locations&#39;</span><span class="p">)</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;m&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;shell thickness at corresponding locations&#39;</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;number of finite elements between sections.  array length should be ``len(z)-1``&#39;</span><span class="p">)</span>
+    <span class="n">L_reinforced</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;m&#39;</span><span class="p">)</span>
+    <span class="n">n_monopile</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;must be a minimum of 1 (top and bottom)&#39;</span><span class="p">)</span>
+    <span class="n">yaw</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;deg&#39;</span><span class="p">)</span>
+    <span class="n">tilt</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;deg&#39;</span><span class="p">)</span>
+    <span class="n">downwind</span> <span class="o">=</span> <span class="n">Bool</span><span class="p">(</span><span class="bp">False</span><span class="p">,</span> <span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">)</span>
+
+    <span class="c"># environment</span>
+    <span class="n">wind_rho</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="mf">1.225</span><span class="p">,</span> <span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;kg/m**3&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;air density&#39;</span><span class="p">)</span>
+    <span class="n">wind_mu</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="mf">1.7934e-5</span><span class="p">,</span> <span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;kg/(m*s)&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;dynamic viscosity of air&#39;</span><span class="p">)</span>
+    <span class="n">wind_Uref1</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;m/s&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;reference wind speed (usually at hub height)&#39;</span><span class="p">)</span>
+    <span class="n">wind_Uref2</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;m/s&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;reference wind speed (usually at hub height)&#39;</span><span class="p">)</span>
+    <span class="n">wind_zref</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;m&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;corresponding reference height&#39;</span><span class="p">)</span>
+    <span class="n">wind_z0</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;m&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;bottom of wind profile (height of ground/sea)&#39;</span><span class="p">)</span>
+
+    <span class="n">wave_rho</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="mf">1027.0</span><span class="p">,</span> <span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;kg/m**3&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;water density&#39;</span><span class="p">)</span>
+    <span class="n">wave_mu</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="mf">1.3351e-3</span><span class="p">,</span> <span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;kg/(m*s)&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;dynamic viscosity of water&#39;</span><span class="p">)</span>
+    <span class="n">wave_cm</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;mass coefficient&#39;</span><span class="p">)</span>
+
+    <span class="n">g</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="mf">9.81</span><span class="p">,</span> <span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;m/s**2&#39;</span><span class="p">)</span>
+
+    <span class="c"># constraint parameters</span>
+    <span class="n">min_d_to_t</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="mf">120.0</span><span class="p">,</span> <span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">)</span>
+    <span class="n">min_taper</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">)</span>
+
+
+    <span class="c"># rotor loads</span>
+    <span class="n">rotorF1</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;forces in hub-aligned coordinate system at rotor hub&#39;</span><span class="p">)</span>
+    <span class="n">rotorM1</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;moments in hub-aligned coordinate system at rotor hub&#39;</span><span class="p">)</span>
+    <span class="n">rotorF2</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;forces in hub-aligned coordinate system at rotor hub&#39;</span><span class="p">)</span>
+    <span class="n">rotorM2</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;moments in hub-aligned coordinate system at rotor hub&#39;</span><span class="p">)</span>
+
+    <span class="c"># RNA mass properties</span>
+    <span class="n">blades_mass</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;kg&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;mass of all blade&#39;</span><span class="p">)</span>
+    <span class="n">hub_mass</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;kg&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;mass of hub&#39;</span><span class="p">)</span>
+    <span class="n">nac_mass</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;kg&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;mass of nacelle&#39;</span><span class="p">)</span>
+
+    <span class="n">hub_cm</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;m&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;location of hub center of mass relative to tower top in yaw-aligned c.s.&#39;</span><span class="p">)</span>
+    <span class="n">nac_cm</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;m&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;location of nacelle center of mass relative to tower top in yaw-aligned c.s.&#39;</span><span class="p">)</span>
+
+    <span class="n">blades_I</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;kg*m**2&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;mass moments of inertia of all blades about hub center&#39;</span><span class="p">)</span>
+    <span class="n">hub_I</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;kg*m**2&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;mass moments of inertia of hub about its center of mass&#39;</span><span class="p">)</span>
+    <span class="n">nac_I</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;kg*m**2&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;mass moments of inertia of nacelle about its center of mass&#39;</span><span class="p">)</span>
+
+    <span class="c"># material properties</span>
+    <span class="n">E</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="mf">210e9</span><span class="p">,</span> <span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;N/m**2&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;material modulus of elasticity&#39;</span><span class="p">)</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="mf">80.8e9</span><span class="p">,</span> <span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;N/m**2&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;material shear modulus&#39;</span><span class="p">)</span>
+    <span class="n">rho</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="mf">8500.0</span><span class="p">,</span> <span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;kg/m**3&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;material density&#39;</span><span class="p">)</span>
+    <span class="n">sigma_y</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="mf">450.0e6</span><span class="p">,</span> <span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;N/m**2&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;yield stress&#39;</span><span class="p">)</span>
+
+    <span class="c"># safety factors</span>
+    <span class="n">gamma_f</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="mf">1.35</span><span class="p">,</span> <span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;safety factor on loads&#39;</span><span class="p">)</span>
+    <span class="n">gamma_m</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;safety factor on materials&#39;</span><span class="p">)</span>
+    <span class="n">gamma_n</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;safety factor on consequence of failure&#39;</span><span class="p">)</span>
+    <span class="n">gamma_b</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;buckling safety factor&#39;</span><span class="p">)</span>
+
+    <span class="c"># fatigue parameters</span>
+    <span class="n">life</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="mf">20.0</span><span class="p">,</span> <span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;fatigue life of tower&#39;</span><span class="p">)</span>
+    <span class="n">m_SN</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;slope of S/N curve&#39;</span><span class="p">)</span>
+    <span class="n">DC</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="mf">80.0</span><span class="p">,</span> <span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;standard value of stress&#39;</span><span class="p">)</span>
+    <span class="n">gamma_fatigue</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="mf">1.755</span><span class="p">,</span> <span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;total safety factor for fatigue&#39;</span><span class="p">)</span>
+    <span class="n">z_DEL</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">)</span>
+    <span class="n">M_DEL</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;in&#39;</span><span class="p">)</span>
+
+    <span class="c"># replace</span>
+    <span class="n">wind1</span> <span class="o">=</span> <span class="n">Slot</span><span class="p">(</span><span class="n">WindBase</span><span class="p">)</span>
+    <span class="n">wind2</span> <span class="o">=</span> <span class="n">Slot</span><span class="p">(</span><span class="n">WindBase</span><span class="p">)</span>
+    <span class="n">wave1</span> <span class="o">=</span> <span class="n">Slot</span><span class="p">(</span><span class="n">WaveBase</span><span class="p">)</span>
+    <span class="n">wave2</span> <span class="o">=</span> <span class="n">Slot</span><span class="p">(</span><span class="n">WaveBase</span><span class="p">)</span>
+    <span class="n">soil</span> <span class="o">=</span> <span class="n">Slot</span><span class="p">(</span><span class="n">SoilBase</span><span class="p">)</span>
+    <span class="n">tower1</span> <span class="o">=</span> <span class="n">Slot</span><span class="p">(</span><span class="n">TowerBase</span><span class="p">)</span>
+    <span class="n">tower2</span> <span class="o">=</span> <span class="n">Slot</span><span class="p">(</span><span class="n">TowerBase</span><span class="p">)</span>
+
+    <span class="c"># outputs</span>
+    <span class="n">mass</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;out&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;kg&#39;</span><span class="p">)</span>
+    <span class="n">f1</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;out&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;Hz&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;first natural frequency&#39;</span><span class="p">)</span>
+    <span class="n">f2</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;out&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;Hz&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;second natural frequency&#39;</span><span class="p">)</span>
+    <span class="n">top_deflection1</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;out&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;m&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;deflection of tower top in yaw-aligned +x direction&#39;</span><span class="p">)</span>
+    <span class="n">top_deflection2</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;out&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;m&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;deflection of tower top in yaw-aligned +x direction&#39;</span><span class="p">)</span>
+    <span class="n">z_nodes</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;out&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;m&#39;</span><span class="p">)</span>
+    <span class="n">stress1</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;out&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;N/m**2&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;von Mises stress along tower on downwind side (yaw-aligned +x).  normalized by yield stress.  includes safety factors.&#39;</span><span class="p">)</span>
+    <span class="n">stress2</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;out&#39;</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;N/m**2&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;von Mises stress along tower on downwind side (yaw-aligned +x).  normalized by yield stress.  includes safety factors.&#39;</span><span class="p">)</span>
+    <span class="n">shellBuckling1</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;out&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;a shell buckling constraint.  should be &lt;= 0 for feasibility.  includes safety factors&#39;</span><span class="p">)</span>
+    <span class="n">shellBuckling2</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;out&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;a shell buckling constraint.  should be &lt;= 0 for feasibility.  includes safety factors&#39;</span><span class="p">)</span>
+    <span class="n">buckling1</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;out&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;a global buckling constraint.  should be &lt;= 0 for feasibility.  includes safety factors&#39;</span><span class="p">)</span>
+    <span class="n">buckling2</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;out&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;a global buckling constraint.  should be &lt;= 0 for feasibility.  includes safety factors&#39;</span><span class="p">)</span>
+    <span class="n">damage</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;out&#39;</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s">&#39;fatigue damage at each tower section&#39;</span><span class="p">)</span>
+    <span class="n">weldability</span> <span class="o">=</span> <span class="n">Array</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;out&#39;</span><span class="p">)</span>
+    <span class="n">manufactuability</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="n">iotype</span><span class="o">=</span><span class="s">&#39;out&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="referenced-environment-modules">
+<h2>4.1. Referenced Environment Modules<a class="headerlink" href="#referenced-environment-modules" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="commonse.environment.WindBase">
+<em class="property">class </em><tt class="descclassname">commonse.environment.</tt><tt class="descname">WindBase</tt><a class="reference internal" href="_modules/commonse/environment.html#WindBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#commonse.environment.WindBase" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="commonse.environment.WaveBase">
+<em class="property">class </em><tt class="descclassname">commonse.environment.</tt><tt class="descname">WaveBase</tt><a class="reference internal" href="_modules/commonse/environment.html#WaveBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#commonse.environment.WaveBase" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="commonse.environment.SoilBase">
+<em class="property">class </em><tt class="descclassname">commonse.environment.</tt><tt class="descname">SoilBase</tt><a class="reference internal" href="_modules/commonse/environment.html#SoilBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#commonse.environment.SoilBase" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="commonse.environment.PowerWind">
+<em class="property">class </em><tt class="descclassname">commonse.environment.</tt><tt class="descname">PowerWind</tt><a class="reference internal" href="_modules/commonse/environment.html#PowerWind"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#commonse.environment.PowerWind" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="commonse.environment.LogWind">
+<em class="property">class </em><tt class="descclassname">commonse.environment.</tt><tt class="descname">LogWind</tt><a class="reference internal" href="_modules/commonse/environment.html#LogWind"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#commonse.environment.LogWind" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="commonse.environment.LinearWaves">
+<em class="property">class </em><tt class="descclassname">commonse.environment.</tt><tt class="descname">LinearWaves</tt><a class="reference internal" href="_modules/commonse/environment.html#LinearWaves"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#commonse.environment.LinearWaves" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="commonse.environment.TowerSoil">
+<em class="property">class </em><tt class="descclassname">commonse.environment.</tt><tt class="descname">TowerSoil</tt><a class="reference internal" href="_modules/commonse/environment.html#TowerSoil"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#commonse.environment.TowerSoil" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="referenced-tower-modules">
+<h2>4.2. Referenced Tower Modules<a class="headerlink" href="#referenced-tower-modules" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="towerse.tower.TowerBase">
+<em class="property">class </em><tt class="descclassname">towerse.tower.</tt><tt class="descname">TowerBase</tt><a class="reference internal" href="_modules/towerse/tower.html#TowerBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#towerse.tower.TowerBase" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="towerse.tower.TowerWithpBEAM">
+<em class="property">class </em><tt class="descclassname">towerse.tower.</tt><tt class="descname">TowerWithpBEAM</tt><a class="reference internal" href="_modules/towerse/tower.html#TowerWithpBEAM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#towerse.tower.TowerWithpBEAM" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="towerse.tower.TowerWithFrame3DD">
+<em class="property">class </em><tt class="descclassname">towerse.tower.</tt><tt class="descname">TowerWithFrame3DD</tt><a class="reference internal" href="_modules/towerse/tower.html#TowerWithFrame3DD"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#towerse.tower.TowerWithFrame3DD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="towerse.tower.TowerSE">
+<em class="property">class </em><tt class="descclassname">towerse.tower.</tt><tt class="descname">TowerSE</tt><a class="reference internal" href="_modules/towerse/tower.html#TowerSE"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#towerse.tower.TowerSE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">4. Documentation</a><ul>
+<li><a class="reference internal" href="#referenced-environment-modules">4.1. Referenced Environment Modules</a></li>
+<li><a class="reference internal" href="#referenced-tower-modules">4.2. Referenced Tower Modules</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tutorial.html"
+                        title="previous chapter">3. Tutorial</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="theory.html"
+                        title="next chapter">5. Theory</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/documentation.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="theory.html" title="5. Theory"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tutorial.html" title="3. Tutorial"
+             >previous</a> |</li>
+        <li><a href="index.html">TowerSE 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, NREL.
+      Last updated on Jun 24, 2014.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
