@@ -52,6 +52,7 @@
             
   <div class="section" id="tutorial">
 <span id="tutorial-label"></span><h1>3. Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
+<p>Two examples are included in this tutorial section: simulation of a land-based tower, and optimization of a land-based tower.</p>
 <div class="section" id="land-based-tower-simulation">
 <h2>3.1. Land-based Tower Simulation<a class="headerlink" href="#land-based-tower-simulation" title="Permalink to this headline">¶</a></h2>
 <p>This following example demonstrates how to setup and run <em>analysis</em> for a land-based tower.  First, we import the modules we want to use and setup the tower configuration.  <cite>TowerSE</cite> was designed to be modular, and so the specific modules you wish to use in the analysis must be specified. There are <a class="reference external" href="http://openmdao.org/docs/basics/variables.html#slot-variables">OpenMDAO Slots</a> for wind1, wind2, wave1, wave2, soil, tower1, and tower2.  The first five make use of the commonse.environment module.  We use multiple wind/wave/tower modules because we are considering two separate loading conditions in this simulation.  The slots wind1 and wind2 can be any component that inherits from <a class="reference internal" href="documentation.html#commonse.environment.WindBase" title="commonse.environment.WindBase"><tt class="xref py py-class docutils literal"><span class="pre">WindBase</span></tt></a>, wave1 and wave2 require components that inherit from <a class="reference internal" href="documentation.html#commonse.environment.WaveBase" title="commonse.environment.WaveBase"><tt class="xref py py-class docutils literal"><span class="pre">WaveBase</span></tt></a>, and soil uses components that inherit from <a class="reference internal" href="documentation.html#commonse.environment.SoilBase" title="commonse.environment.SoilBase"><tt class="xref py py-class docutils literal"><span class="pre">SoilBase</span></tt></a>.</p>
@@ -185,6 +186,53 @@
 <p class="caption">Figure 2: Utilization along tower for ultimate stress, shell buckling, global buckling, and fatigue damage.</p>
 </div>
 </div>
+<div class="section" id="land-based-tower-optimization">
+<h2>3.2. Land-Based Tower Optimization<a class="headerlink" href="#land-based-tower-optimization" title="Permalink to this headline">¶</a></h2>
+<p>We begin with the same setup as the previous section, but now import additional modules for optimization.</p>
+<div class="highlight-python"><div class="highlight"><pre>        <span class="kn">from</span> <span class="nn">pyopt_driver.pyopt_driver</span> <span class="kn">import</span> <span class="n">pyOptDriver</span>
+        <span class="kn">from</span> <span class="nn">openmdao.lib.casehandlers.api</span> <span class="kn">import</span> <span class="n">DumpCaseRecorder</span>
+</pre></div>
+</div>
+<p>The optimizer must first be selected and configured, in this example I use SNOPT.</p>
+<div class="highlight-python"><div class="highlight"><pre>        <span class="n">tower</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;driver&#39;</span><span class="p">,</span> <span class="n">pyOptDriver</span><span class="p">())</span>
+        <span class="n">tower</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">optimizer</span> <span class="o">=</span> <span class="s">&#39;SNOPT&#39;</span>
+        <span class="n">tower</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;Major feasibility tolerance&#39;</span><span class="p">:</span> <span class="mf">1e-6</span><span class="p">,</span>
+                               <span class="s">&#39;Minor feasibility tolerance&#39;</span><span class="p">:</span> <span class="mf">1e-6</span><span class="p">,</span>
+                               <span class="s">&#39;Major optimality tolerance&#39;</span><span class="p">:</span> <span class="mf">1e-5</span><span class="p">,</span>
+                               <span class="s">&#39;Function precision&#39;</span><span class="p">:</span> <span class="mf">1e-8</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>We now set the objective, and in this example it is normalized to be of order 1 for better convergence behavior.</p>
+<div class="highlight-python"><div class="highlight"><pre>        <span class="n">tower</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">add_objective</span><span class="p">(</span><span class="s">&#39;tower1.mass / 300000&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The tower diameters, thickness, and waist location are added as design variables.</p>
+<div class="highlight-python"><div class="highlight"><pre>        <span class="n">tower</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">add_parameter</span><span class="p">(</span><span class="s">&#39;z[1]&#39;</span><span class="p">,</span> <span class="n">low</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mf">0.75</span><span class="p">)</span>
+        <span class="n">tower</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">add_parameter</span><span class="p">(</span><span class="s">&#39;d[:-1]&#39;</span><span class="p">,</span> <span class="n">low</span><span class="o">=</span><span class="mf">3.87</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mf">20.0</span><span class="p">)</span>
+        <span class="n">tower</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">add_parameter</span><span class="p">(</span><span class="s">&#39;t&#39;</span><span class="p">,</span> <span class="n">low</span><span class="o">=</span><span class="mf">0.005</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A recorder is added to display each iteration to the screen.</p>
+<div class="highlight-python"><div class="highlight"><pre>        <span class="n">tower</span><span class="o">.</span><span class="n">recorders</span> <span class="o">=</span> <span class="p">[</span><span class="n">DumpCaseRecorder</span><span class="p">()]</span>
+</pre></div>
+</div>
+<p>Finally, constraints are added.</p>
+<div class="highlight-python"><div class="highlight"><pre>        <span class="n">tower</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">add_constraint</span><span class="p">(</span><span class="s">&#39;tower1.stress &lt;= 1.0&#39;</span><span class="p">)</span>
+        <span class="n">tower</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">add_constraint</span><span class="p">(</span><span class="s">&#39;tower2.stress &lt;= 1.0&#39;</span><span class="p">)</span>
+        <span class="n">tower</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">add_constraint</span><span class="p">(</span><span class="s">&#39;tower1.buckling &lt;= 1.0&#39;</span><span class="p">)</span>
+        <span class="n">tower</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">add_constraint</span><span class="p">(</span><span class="s">&#39;tower2.buckling &lt;= 1.0&#39;</span><span class="p">)</span>
+        <span class="n">tower</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">add_constraint</span><span class="p">(</span><span class="s">&#39;tower1.damage &lt;= 1.0&#39;</span><span class="p">)</span>
+        <span class="n">tower</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">add_constraint</span><span class="p">(</span><span class="s">&#39;gc.weldability &lt;= 0.0&#39;</span><span class="p">)</span>
+        <span class="n">tower</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">add_constraint</span><span class="p">(</span><span class="s">&#39;gc.manufactuability &lt;= 0.0&#39;</span><span class="p">)</span>
+        <span class="n">freq1p</span> <span class="o">=</span> <span class="mf">0.2</span>  <span class="c"># 1P freq in Hz</span>
+        <span class="n">tower</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">add_constraint</span><span class="p">(</span><span class="s">&#39;tower1.f1 &gt;= 1.1*</span><span class="si">%f</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">freq1p</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now the optimization can be run.</p>
+<div class="highlight-python"><div class="highlight"><pre>        <span class="n">tower</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 
@@ -197,6 +245,7 @@
   <ul>
 <li><a class="reference internal" href="#">3. Tutorial</a><ul>
 <li><a class="reference internal" href="#land-based-tower-simulation">3.1. Land-based Tower Simulation</a></li>
+<li><a class="reference internal" href="#land-based-tower-optimization">3.2. Land-Based Tower Optimization</a></li>
 </ul>
 </li>
 </ul>
@@ -246,7 +295,7 @@
     </div>
     <div class="footer">
         &copy; Copyright 2014, NREL.
-      Last updated on Jun 24, 2014.
+      Last updated on Jun 27, 2014.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
