@@ -33,7 +33,7 @@ With the tower configuration setup, we define some of the geometric parameters. 
     :height: 4in
     :align: center
 
-    Example of tower geometric parameterization (TODO: update image).
+    Example of tower geometric parameterization.
 
 .. literalinclude:: ../src/towerse/tower.py
     :language: python
