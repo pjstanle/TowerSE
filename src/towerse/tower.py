@@ -257,7 +257,6 @@ class TowerFrame3DD(Component):
         r = np.zeros(n)
 
         nodes = frame3dd.NodeData(node, x, y, z, r)
-        print 'nodes: ', nodes
         # -----------------------------------
 
         # ------ reaction data ------------
@@ -267,7 +266,6 @@ class TowerFrame3DD(Component):
         rigid = float('inf')
 
         reactions = frame3dd.ReactionData(node, self.kx, self.ky, self.kz, self.ktx, self.kty, self.ktz, rigid)
-        print 'reactions: ', reactions
         # -----------------------------------
 
         # ------ frame element data ------------
@@ -290,7 +288,6 @@ class TowerFrame3DD(Component):
 
         elements = frame3dd.ElementData(element, N1, N2, Az, Asx, Asy, Jz,
             Ixx, Iyy, E, G, roll, rho)
-        print 'elements: ', elements
         # -----------------------------------
 
 
@@ -400,10 +397,10 @@ class TowerFrame3DD(Component):
 #        shear_stress = 2. * V / self.Az  # coefficient of 2 for a hollow circular section, but should be conservative for other shapes
         axial_stress = Fz/self.Az - np.sqrt(Mxx**2+Myy**2)/self.Iyy*self.d/2.0  #More conservative, just use the tilted bending and add total max shear as well at the same point, if you do not like it go back to the previous lines
         shear_stress = 2. * np.sqrt(Vx**2+Vy**2) / self.Az # coefficient of 2 for a hollow circular section, but should be conservative for other shapes
-
+        print 'shear_stress: ', shear_stress
         # hoop_stress (Eurocode method)
         hoop_stress = hoopStressEurocode(self.z, self.d, self.t, self.L_reinforced, self.qdyn)
-
+        print 'hoop_stress: ', hoop_stress
         # von mises stress
         self.stress = vonMisesStressUtilization(axial_stress, hoop_stress, shear_stress,
                       self.gamma_f*self.gamma_m*self.gamma_n, self.sigma_y)
