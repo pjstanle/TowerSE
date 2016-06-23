@@ -353,7 +353,8 @@ class TowerFrame3DD(Component):
         tower.addLoadCase(load)
 
         # -----------------------------------
-
+        print '*******************************************************************'
+        print 'tower: ', tower.__dict__
 
         # run the analysis
         displacements, forces, reactions, internalForces, mass, modal = tower.run()
