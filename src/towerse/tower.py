@@ -350,6 +350,20 @@ class TowerFrame3DD(Component):
         xz2 = z[1:] - z[:-1] - 1e-6
         wz1 = Pz[:-1]
         wz2 = Pz[1:]
+        
+        print 'EL: ', EL
+        print 'xx1: ', xx1
+        print 'xx2: ', xx2
+        print 'wx1: ', wx1
+        print 'wx2: ', wx2
+        print 'xy1: ', xy1
+        print 'xy2: ', xy2
+        print 'wy1: ', wy1
+        print 'wy2: ', wy2
+        print 'xz1: ', xz1
+        print 'xz2: ', xz2
+        print 'wz1: ', wz1
+        print 'wz2: ', wz2
 
         load.changeTrapezoidalLoads(EL, xx1, xx2, wx1, wx2, xy1, xy2, wy1, wy2, xz1, xz2, wz1, wz2)
 
