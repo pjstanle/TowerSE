@@ -330,6 +330,10 @@ class TowerFrame3DD(Component):
 
         # distributed loads
         Px, Py, Pz = self.Pz, self.Py, -self.Px  # switch to local c.s.
+        print '*****************************************************'
+        print 'Px: ', Px
+        print 'Py: ', Py
+        print 'Pz: ', Pz
         z = self.z
 
         # trapezoidally distributed loads
@@ -1020,4 +1024,3 @@ if __name__ == '__main__':
         # --- run opt ---
         tower.run()
         # ---------------
-
