@@ -55,7 +55,13 @@ class TowerDiscretization(Component):
 
         super(TowerDiscretization, self).__init__()
 
-        self.fd_options['force_fd'] = True
+        self.deriv_options['check_form'] = 'central'
+        self.deriv_options['check_step_size'] = 1E-6
+
+        self.deriv_options['form'] = 'central'
+        self.deriv_options['step_size'] = 1E-6
+        self.deriv_options['step_calc'] = 'relative'
+        self.deriv_options['type'] = 'fd'
 
          # variables
         self.add_param('z_param', np.zeros(nPoints), units='m', desc='parameterized locations along tower, linear lofting between')
@@ -80,8 +86,13 @@ class GeometricConstraints(Component):
     def __init__(self, nPoints):
 
         super(GeometricConstraints, self).__init__()
+        self.deriv_options['check_form'] = 'central'
+        self.deriv_options['check_step_size'] = 1E-6
 
-        self.fd_options['force_fd'] = True
+        self.deriv_options['form'] = 'central'
+        self.deriv_options['step_size'] = 1E-6
+        self.deriv_options['step_calc'] = 'relative'
+        self.deriv_options['type'] = 'fd'
 
 
         self.add_param('d', np.zeros(nPoints), units='m')
@@ -131,8 +142,13 @@ class CylindricalShellProperties(Component):
     def __init__(self, nFull):
 
         super(CylindricalShellProperties, self).__init__()
+        self.deriv_options['check_form'] = 'central'
+        self.deriv_options['check_step_size'] = 1E-6
 
-        self.fd_options['force_fd'] = True
+        self.deriv_options['form'] = 'central'
+        self.deriv_options['step_size'] = 1E-6
+        self.deriv_options['step_calc'] = 'relative'
+        self.deriv_options['type'] = 'fd'
 
         self.add_param('d', np.zeros(nFull), units='m', desc='tower diameter at corresponding locations')
         self.add_param('t', np.zeros(nFull), units='m', desc='shell thickness at corresponding locations')
@@ -173,8 +189,13 @@ class TowerFrame3DD(Component):
     def __init__(self, nFull, nK, nMass, nPL, nDEL):
 
         super(TowerFrame3DD, self).__init__()
+        self.deriv_options['check_form'] = 'central'
+        self.deriv_options['check_step_size'] = 1E-6
 
-        self.fd_options['force_fd'] = True
+        self.deriv_options['form'] = 'central'
+        self.deriv_options['step_size'] = 1E-6
+        self.deriv_options['step_calc'] = 'relative'
+        self.deriv_options['type'] = 'fd'
 
         # cross-sectional data along tower.
         self.add_param('z', np.zeros(nFull), units='m', desc='location along tower. start at bottom and go to top')
@@ -462,8 +483,13 @@ class TowerSE(Group):
     def __init__(self, nPoints, nFull, nK, nMass, nPL, nDEL, wind=''):
 
         super(TowerSE, self).__init__()
+        self.deriv_options['check_form'] = 'central'
+        self.deriv_options['check_step_size'] = 1E-6
 
-        self.fd_options['force_fd'] = True
+        self.deriv_options['form'] = 'central'
+        self.deriv_options['step_size'] = 1E-6
+        self.deriv_options['step_calc'] = 'relative'
+        self.deriv_options['type'] = 'fd'
 
         self.add('geometry', TowerDiscretization(nPoints, nFull), promotes=['*'])
         # two load cases.  TODO: use a case iterator

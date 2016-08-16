@@ -10,11 +10,12 @@ if __name__ == '__main__':
 
     # --- geometry ----
 
-    z_param = np.array([0.0, 20, 43.8, 87.6])
-    d_param = np.array([6.0, 5.0, 4.935, 3.87])
-    t_param = np.array([0.027*1.3, .024*1.3, 0.023*1.3, 0.019*1.3])
-    n = 50
-    z_full = np.linspace(0.0, 87.6, n)
+    H = 179.
+    z_param = np.linspace(0.,H,3)
+    d_param = np.array([6.0, 4.935, 3.87]) # not going to modify this right now
+    t_param = [0.027*1.3, 0.023*1.3, 0.019*1.3] # not going to modify this right now
+    n = 15
+    z_full = np.linspace(0.0, H, n)
     L_reinforced = 30.0*np.ones(n)  # [m] buckling length
     theta_stress = 0.0*np.ones(n)
     yaw = 0.0
@@ -91,6 +92,7 @@ if __name__ == '__main__':
     # --- fatigue ---
     z_DEL = np.array([0.000, 1.327, 3.982, 6.636, 9.291, 11.945, 14.600, 17.255, 19.909, 22.564, 25.218, 27.873, 30.527, 33.182, 35.836, 38.491, 41.145, 43.800, 46.455, 49.109, 51.764, 54.418, 57.073, 59.727, 62.382, 65.036, 67.691, 70.345, 73.000, 75.655, 78.309, 80.964, 83.618, 86.273, 87.600])
     M_DEL = 1e3*np.array([8.2940E+003, 8.1518E+003, 7.8831E+003, 7.6099E+003, 7.3359E+003, 7.0577E+003, 6.7821E+003, 6.5119E+003, 6.2391E+003, 5.9707E+003, 5.7070E+003, 5.4500E+003, 5.2015E+003, 4.9588E+003, 4.7202E+003, 4.4884E+003, 4.2577E+003, 4.0246E+003, 3.7942E+003, 3.5664E+003, 3.3406E+003, 3.1184E+003, 2.8977E+003, 2.6811E+003, 2.4719E+003, 2.2663E+003, 2.0673E+003, 1.8769E+003, 1.7017E+003, 1.5479E+003, 1.4207E+003, 1.3304E+003, 1.2780E+003, 1.2673E+003, 1.2761E+003])
+    z_DEL = z_DEL*H/87.6
     nDEL = len(z_DEL)
     gamma_fatigue = 1.35*1.3*1.0
     life = 20.0
@@ -142,42 +144,42 @@ if __name__ == '__main__':
     prob['d_param'] = d_param
     prob['t_param'] = t_param
     prob['z_full'] = z_full
-    prob['tower1.L_reinforced'] = L_reinforced
-    prob['distLoads1.yaw'] = yaw
+    prob['L_reinforced'] = L_reinforced
+    prob['yaw'] = yaw
 
     # --- material props ---
-    prob['tower1.E'] = E
-    prob['tower1.G'] = G
+    prob['E'] = E
+    prob['G'] = G
     prob['tower1.rho'] = rho
-    prob['tower1.sigma_y'] = sigma_y
+    prob['sigma_y'] = sigma_y
 
     # --- spring reaction data.  Use float('inf') for rigid constraints. ---
-    prob['tower1.kidx'] = kidx
-    prob['tower1.kx'] = kx
-    prob['tower1.ky'] = ky
-    prob['tower1.kz'] = kz
-    prob['tower1.ktx'] = ktx
-    prob['tower1.kty'] = kty
-    prob['tower1.ktz'] = ktz
+    prob['kidx'] = kidx
+    prob['kx'] = kx
+    prob['ky'] = ky
+    prob['kz'] = kz
+    prob['ktx'] = ktx
+    prob['kty'] = kty
+    prob['ktz'] = ktz
 
     # --- extra mass ----
-    prob['tower1.midx'] = midx
-    prob['tower1.m'] = m
-    prob['tower1.mIxx'] = mIxx
-    prob['tower1.mIyy'] = mIyy
-    prob['tower1.mIzz'] = mIzz
-    prob['tower1.mIxy'] = mIxy
-    prob['tower1.mIxz'] = mIxz
-    prob['tower1.mIyz'] = mIyz
-    prob['tower1.mrhox'] = mrhox
-    prob['tower1.mrhoy'] = mrhoy
-    prob['tower1.mrhoz'] = mrhoz
-    prob['tower1.addGravityLoadForExtraMass'] = addGravityLoadForExtraMass
+    prob['midx'] = midx
+    prob['m'] = m
+    prob['mIxx'] = mIxx
+    prob['mIyy'] = mIyy
+    prob['mIzz'] = mIzz
+    prob['mIxy'] = mIxy
+    prob['mIxz'] = mIxz
+    prob['mIyz'] = mIyz
+    prob['mrhox'] = mrhox
+    prob['mrhoy'] = mrhoy
+    prob['mrhoz'] = mrhoz
+    prob['addGravityLoadForExtraMass'] = addGravityLoadForExtraMass
     # -----------
 
     # --- wind ---
-    prob['wind1.zref'] = wind_zref
-    prob['wind1.z0'] = wind_z0
+    prob['zref'] = wind_zref
+    prob['z0'] = wind_z0
     # ---------------
 
     # # --- loading case 1: max Thrust ---
@@ -203,18 +205,18 @@ if __name__ == '__main__':
     # # ---------------
 
     # --- safety factors ---
-    prob['tower1.gamma_f'] = gamma_f
-    prob['tower1.gamma_m'] = gamma_m
-    prob['tower1.gamma_n'] = gamma_n
-    prob['tower1.gamma_b'] = gamma_b
+    prob['gamma_f'] = gamma_f
+    prob['gamma_m'] = gamma_m
+    prob['gamma_n'] = gamma_n
+    prob['gamma_b'] = gamma_b
     # ---------------
 
     # --- fatigue ---
-    prob['tower1.z_DEL'] = z_DEL
-    prob['tower1.M_DEL'] = M_DEL
-    prob['tower1.gamma_fatigue'] = gamma_fatigue
-    prob['tower1.life'] = life
-    prob['tower1.m_SN'] = m_SN
+    prob['z_DEL'] = z_DEL
+    prob['M_DEL'] = M_DEL
+    prob['gamma_fatigue'] = gamma_fatigue
+    prob['life'] = life
+    prob['m_SN'] = m_SN
     # ---------------
 
     # --- constraints ---
