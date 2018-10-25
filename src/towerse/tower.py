@@ -441,13 +441,15 @@ class TowerFrame3DD(Component):
         ##axial_stress = Fz/self.Az + Mxx/self.Ixx*y_stress - Myy/self.Iyy*x_stress
 #        V = Vy*x_stress/R - Vx*y_stress/R  # shear stress orthogonal to direction x,y
 #        shear_stress = 2. * V / self.Az  # coefficient of 2 for a hollow circular section, but should be conservative for other shapes
+        # print 'Tower: '
         axial_stress = Fz/params['Az'] - np.sqrt(Mxx**2+Myy**2)/params['Iyy']*params['d']/2.0  #More conservative, just use the tilted bending and add total max shear as well at the same point, if you do not like it go back to the previous lines
-
+        # print 'Axial: ', axial_stress
+        # print 'Myy: :', Myy
+        # print 'Mxx: ', Mxx
         shear_stress = 2. * np.sqrt(Vx**2+Vy**2) / params['Az'] # coefficient of 2 for a hollow circular section, but should be conservative for other shapes
-
+        # print 'shear_stress: ', shear_stress
         # hoop_stress (Eurocode method)
         hoop_stress = hoopStressEurocode(params['z'], params['d'], params['t'], params['L_reinforced'], params['qdyn'])
-
         # von mises stress
         unknowns['stress'] = vonMisesStressUtilization(axial_stress, hoop_stress, shear_stress,
                       params['gamma_f']*params['gamma_m']*params['gamma_n'], params['sigma_y'])
